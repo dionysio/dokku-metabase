@@ -19,17 +19,11 @@ Get the most recent JAR file from: http://www.metabase.com/start/jar.html
 ```
 dokku apps:create metabase
 
-# Link Databases
+# Get the DATABASE URL
+dokku config:get metabase DATABASE_URL
 
-# install postgres if it's not available yet
-dokku plugin:install https://github.com/dokku/dokku-postgres.git postgres
-
-# Metabase DB
-dokku postgres:create metabase
-dokku postgres:link metabase metabase
-
-# Take the DATABASE URL from above and run
-dokku config:set metabase MB_DB_CONNECTION_URI=<url from earlier> MB_JETTY_PORT=5000 MB_DB_TYPE=postgres BUILDPACK_URL=https://github.com/heroku/heroku-buildpack-jvm-common.git
+# and set it here
+dokku config:set metabase MB_DB_CONNECTION_URI=<url from earlier> MB_DB_TYPE=postgres BUILDPACK_URL=https://github.com/heroku/heroku-buildpack-jvm-common.git
 
 # Link any interesting database from other dokku containers
 dokku mysql:link your-other-dokku-app metabase

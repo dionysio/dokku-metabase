@@ -1,0 +1,17 @@
+{
+  "name": "metabase",
+  "description": "The fastest, easiest way to share data and analytics inside your company. An open source Business Intelligence server you can install in 5 minutes",
+  "repository": "https://github.com/dionysio/dokku-metabase",
+  "success_url": "/",
+  "dokku": {
+    "plugins": [
+      {
+        "name": "proxy",
+        "commands":["proxy:ports-set $APP http:80:3000"]
+      },{
+        "name":"psql-single-container",
+        "commands":["psql:create $APP","psql:link $APP $APP"]
+      }
+    ]
+  }
+}
